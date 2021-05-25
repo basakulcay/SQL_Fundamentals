@@ -1,0 +1,38 @@
+SELECT * 
+FROM places
+LIMIT 3;
+ 
+SELECT * 
+FROM reviews
+LIMIT 3;
+
+SELECT name, price_point 
+FROM places 
+WHERE price_point LIKE "%$$";
+
+SELECT p.name,p.average_rating, r.rating,r.review_date, r.note
+FROM places p
+INNER JOIN
+reviews R
+ON
+p.id = r.place_id
+ORDER BY average_rating DESC,rating DESC;
+
+SELECT p.name AS No_Reviews
+FROM places p
+LEFT JOIN
+reviews R
+ON
+p.id = r.place_id
+WHERE r.place_id IS NULL;
+
+SELECT r.username, COUNT(r.rating)
+FROM 
+reviews r
+JOIN 
+places p
+WHERE r.rating < p.average_rating
+GROUP BY r.username
+ORDER BY COUNT(r.rating) DESC
+LIMIT 10;
+
